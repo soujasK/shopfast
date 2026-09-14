@@ -22,6 +22,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # phonebook.json is gitignored on purpose -- real phone numbers
+      # must never be committed. For a fresh CI checkout to have one at
+      # all, it has to come from somewhere else: an encrypted repo
+      # secret, written to the expected path right before the action
+      # runs. Writing a secret value via echo is normally an anti-pattern
+      # (shell history, process listing) but this is a single-line CI
+      # step with no interactive shell involved, and GitHub masks the
+      # secret's value in the log output regardless.
+      - name: Write phonebook.json from secret
+        run: echo '${{ secrets.PHONEBOOK_JSON }}' > phonebook.json
+
       - name: Run AuditLane Action
         uses: soujasK/AuditLane@main
         with:
