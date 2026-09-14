@@ -1,3 +1,10 @@
 node_modules/
 .env
 phonebook.json
+.auditlane_call_budget.json
+.auditlane_ledger.json
+
+# Disposable demo props for telephony-gate recordings -- not real
+# application data, recreated as needed, never meant to be tracked.
+debug_logs/
+old_cache_dir/
