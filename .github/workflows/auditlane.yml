@@ -1,0 +1,31 @@
+name: auditlane
+
+# Runs on every PR opened against this repo. Defaults to dress-rehearsal
+# mode (no real calls, no CALL-E key required) unless
+# AUDITLANE_DRESS_REHEARSAL=false is set as a repository variable AND
+# CALLE_API_KEY is present as a secret — both have to be explicitly set
+# before this ever places a real call. See AuditLane's docs/SAFETY.md
+# before ever flipping that on.
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: write
+  statuses: write
+
+jobs:
+  verify-verbal-authorization-claims:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run AuditLane Action
+        uses: soujasK/AuditLane@main
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          calle_api_key: ${{ secrets.CALLE_API_KEY }}
+          dress_rehearsal: ${{ vars.AUDITLANE_DRESS_REHEARSAL || 'true' }}
+          phonebook_path: phonebook.json
