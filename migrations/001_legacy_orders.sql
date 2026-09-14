@@ -7,3 +7,4 @@ CREATE TABLE legacy_orders (
     status TEXT NOT NULL DEFAULT 'pending',
     created_at TIMESTAMP NOT NULL DEFAULT now()
 );
+"-- reviewed" 
