@@ -13,6 +13,4 @@ npm start
 
 ## Database
 
-Postgres. See `migrations/` for schema history. The `legacy_orders`
-table (pre-v2 schema) is still referenced by a few reporting jobs —
-confirm with the backend lead before dropping it.
+Postgres. See `migrations/` for schema history.
